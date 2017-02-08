@@ -4,7 +4,7 @@
 
 .SUFFIXES: .erl .beam
 
-MODULES  = system1 system2 peer counter
+MODULES  = system1 system2 system3 peer peer3 counter parent
 HOSTS    = 3
 HOSTSm1  = 2
 
@@ -29,7 +29,7 @@ clean:
 
 # LOCAL RUN ===================================================
 
-SYSTEM    = system2
+SYSTEM    = system3
 L_SYSTEM  = system2
 
 L_HOST    = localhost.localdomain
