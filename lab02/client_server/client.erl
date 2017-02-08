@@ -19,9 +19,7 @@ next(S,PID) ->
     true -> 
       S ! {square,1.0,PID}
   end,  
-
   
-
   receive 
     {result, Area} -> 
       io:format("Area for ~p is ~p~n", [PID, Area]) 
