@@ -7,16 +7,23 @@ start()->
 
 broadcast(C)->
   receive
-    {msg,Msg,Peers} -> 
+    {init,Msg,Peers} -> 
       Counter = counter:tick(C),
       if
         Counter =< 1 ->
-          io:format('Peer ~p has recieved message ~p ~n',[self(),Msg]),
-          [P ! {msg,Msg,[[self()]|lists:delete(P,Peers)]} || P <- Peers];
+          io:format('Peer ~p has recieved peers ~p ~n',[self(),Peers]),
+          [P ! {msg,Msg} || P <- Peers];
+        true -> false
+      end;
+    {msg,Msg} -> 
+      Counter = counter:tick(C),
+      if
+        Counter =< 1 ->
+          io:format('Peer ~p has recieved message from peer ~n',[self()]);
         true -> false
       end
   after
     1000 -> 
-      io:format("Peer ~p Messages seen = ~p ~n",[self(),counter:tick(C)-1])
+      io:format("Peer ~p Messages seen = ~p ~n",[self(),counter:read(C)])
   end,
   broadcast(C).
