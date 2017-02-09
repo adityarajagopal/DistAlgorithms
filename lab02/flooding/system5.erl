@@ -3,12 +3,12 @@
 
 %%% run all processes on one node
  
--module(system4).
+-module(system5).
 -export([start/1]).
  
 start([N|T]) ->  
   % spawn N peers and pass to each peer the message 'hello' and a list of all of its neighbours
-  Peers = [{neighbours(List_iterator),spawn(peer4,start,[])} || List_iterator <- lists:seq(1,list_to_integer(atom_to_list(N)))],
+  Peers = [{neighbours(List_iterator),spawn(peer5,start,[])} || List_iterator <- lists:seq(1,list_to_integer(atom_to_list(N)))],
   [P ! {init,'hello',[S || {I,S} <- [lists:nth(I,Peers) || I<-S]]} || {S,P} <- Peers].
   
 
